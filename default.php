@@ -43,7 +43,7 @@ $Sender->MasterView = $MasterView;
    }
 
 public function Base_Render_Before(&$Sender) {
-$heresay = '<script type="text/javascript" src="http://localhost:8888/heresay/platform/heresay_vanilla_test.js" ></script>';
+$heresay = '<script type="text/javascript" src="http://test.heresay.org.uk/platform/heresay_vanilla_test.js" ></script>';
 $googleMaps = '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>';
 // Send it to the Header of the page
 $Sender->Head->AddString($heresay);
