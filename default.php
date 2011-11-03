@@ -2,7 +2,7 @@
 
 // Define the plugin:
 $PluginInfo['Heresay'] = array(
-   'Name' => 'Custom Pages',
+   'Name' => 'Heresay',
    'Description' => 'A plugin that lets you add custom pages. You need to add them to the "pages" folder of this plugin.',
    'Version' => '1',
    'Author' => "Mark O'Sullivan",
