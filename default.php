@@ -32,10 +32,11 @@ $Page = 'default';
 
 // Use the default css if not viewing admin master
 if ($MasterView != 'admin') {
-$Sender->ClearCssFiles();
-$Sender->AddCssFile('style.css');
+	$Sender->ClearCssFiles();
+	$Sender->AddCssFile('style.css');
+	$Sender->AddSideMenu();
 } else {
-$Sender->AddSideMenu('plugin/page/default/admin');
+	$Sender->AddSideMenu('plugin/page/default/admin');
 }
 $Sender->MasterView = $MasterView;
       $Sender->Render($Path.$Page.'.php');
