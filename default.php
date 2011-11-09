@@ -32,13 +32,7 @@ class HeresayPlugin implements Gdn_IPlugin {
 		$Page = 'default';
 
 	    $SideMenu = new SideMenuModule($this);
-		$this->AddModule('GuestModule');
-		$this->AddModule('SignedInModule');
 
-		$this->AddModule('NewDiscussionModule');
-		$this->AddModule('CategoriesModule');
-		$this->AddModule('BookmarkedModule');
-	    $this->AddModule($SideMenu, 'Panel');
 
 		$Sender->ClearCssFiles();
 		$Sender->AddCssFile('style.css');
