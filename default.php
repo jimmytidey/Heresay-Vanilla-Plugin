@@ -21,25 +21,31 @@ class HeresayPlugin implements Gdn_IPlugin {
    }
    
    public function PluginController_Page_Create(&$Sender) {
-// See what page was requested
-$Page = ArrayValue('0', $Sender->RequestArgs, 'default');
-$MasterView = ArrayValue('1', $Sender->RequestArgs, 'default');
-$MasterView = $MasterView != 'admin' ? 'default' : 'admin';
-$Path = PATH_PLUGINS . DS . 'Heresay' . DS . 'pages' . DS;
-// If the page doesn't exist, roll back to the default
-if (!file_exists($Path.$Page.'.php'))
-$Page = 'default';
+		// See what page was requested
+		$Page = ArrayValue('0', $Sender->RequestArgs, 'default');
+		$MasterView = ArrayValue('1', $Sender->RequestArgs, 'default');
+		$MasterView = $MasterView != 'admin' ? 'default' : 'admin';
+		$Path = PATH_PLUGINS . DS . 'Heresay' . DS . 'pages' . DS;
+		
+		// If the page doesn't exist, roll back to the default
+		if (!file_exists($Path.$Page.'.php'))
+		$Page = 'default';
 
-// Use the default css if not viewing admin master
-if ($MasterView != 'admin') {
-	$Sender->ClearCssFiles();
-	$Sender->AddCssFile('style.css');
-	$Sender->AddSideMenu();
-} else {
-	$Sender->AddSideMenu('plugin/page/default/admin');
-}
-$Sender->MasterView = $MasterView;
-      $Sender->Render($Path.$Page.'.php');
+	    $SideMenu = new SideMenuModule($this);
+		$this->AddModule('GuestModule');
+		$this->AddModule('SignedInModule');
+
+		$this->AddModule('NewDiscussionModule');
+		$this->AddModule('CategoriesModule');
+		$this->AddModule('BookmarkedModule');
+	    $this->AddModule($SideMenu, 'Panel');
+
+		$Sender->ClearCssFiles();
+		$Sender->AddCssFile('style.css');
+		$Sender->AddSideMenu();
+
+		$Sender->MasterView = $MasterView;
+      	$Sender->Render($Path.$Page.'.php');
    }
 
 public function Base_Render_Before(&$Sender) {
