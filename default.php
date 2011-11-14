@@ -21,6 +21,11 @@ class HeresayPlugin implements Gdn_IPlugin {
    }
    
    public function PluginController_Page_Create(&$Sender) {
+	
+		$Sender->Head->Title('The Page You requested could not be found on this server');
+		$Sender->AddModule('SignedInModule');
+		$Sender->AddModule('GuestModule');
+		
 		// See what page was requested
 		$Page = ArrayValue('0', $Sender->RequestArgs, 'default');
 		$MasterView = ArrayValue('1', $Sender->RequestArgs, 'default');
@@ -31,11 +36,14 @@ class HeresayPlugin implements Gdn_IPlugin {
 		if (!file_exists($Path.$Page.'.php'))
 		$Page = 'default';
 
-	    $SideMenu = new SideMenuModule($this);
+		// Use the default css if not viewing admin master
+		if ($MasterView != 'admin') {
+			$Sender->ClearCssFiles();
+			$Sender->AddCssFile('style.css');
+		} else {
+			$Sender->AddSideMenu('plugin/page/default/admin');
+		}
 
-
-		$Sender->ClearCssFiles();
-		$Sender->AddCssFile('style.css');
 		$Sender->AddSideMenu();
 
 		$Sender->MasterView = $MasterView;
